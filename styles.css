@@ -1,0 +1,686 @@
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:100 700;font-display:swap;src:url("/fonts/ibmplexsans-latin-ext-var.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'IBM Plex Sans';font-style:normal;font-weight:100 700;font-display:swap;src:url("/fonts/ibmplexsans-latin-var.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/inter-latin-ext-var.woff2") format("woff2");unicode-range:U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;}
+@font-face{font-family:'Inter';font-style:normal;font-weight:100 900;font-display:swap;src:url("/fonts/inter-latin-var.woff2") format("woff2");unicode-range:U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;}
+:root {
+  --color-primary: #742F46;
+  --color-on-primary: #FFFFFF;
+  --color-accent: #D2B79D;
+  --color-surface: #FFFFFF;
+  --color-text: #241A20;
+  --color-bg: #F7F4F2;
+  --color-muted: #717E90;
+  --color-bg-alt: color-mix(in srgb, #742F46 6%, #F7F4F2);
+  --color-surface-tint: color-mix(in srgb, #D2B79D 10%, #FFFFFF);
+  --color-surface-strong: color-mix(in srgb, #742F46 14%, #FFFFFF);
+  --color-card: color-mix(in srgb, #742F46 7%, #FFFFFF);
+  --color-card-strong: color-mix(in srgb, #D2B79D 12%, #FFFFFF);
+  --color-line: color-mix(in srgb, #241A20 10%, transparent);
+  --color-line-strong: color-mix(in srgb, #742F46 22%, transparent);
+  --color-nav: color-mix(in srgb, #241A20 4%, white);
+  --color-nav-border: color-mix(in srgb, #742F46 12%, transparent);
+  --color-image-placeholder: color-mix(in srgb, #D2B79D 9%, #FFFFFF);
+  --font-heading: 'IBM Plex Sans', system-ui, sans-serif;
+  --font-body: 'Inter', system-ui, sans-serif;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  background-color: var(--color-bg);
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+}
+
+/* ─── Background systems ─── */
+.jean-bg-mesh {
+  background-image:
+    radial-gradient(at 0% 0%, rgba(116,47,70,0.25) 0%, transparent 55%),
+    radial-gradient(at 100% 0%, rgba(210,183,157,0.22) 0%, transparent 55%),
+    radial-gradient(at 50% 100%, rgba(116,47,70,0.25) 0%, transparent 50%),
+    radial-gradient(at 85% 70%, rgba(210,183,157,0.22) 0%, transparent 45%);
+}
+
+.jean-bg-grid {
+  background-image: radial-gradient(circle, rgba(113,126,144,0.12) 1.5px, transparent 1.5px);
+  background-size: 24px 24px;
+}
+
+.jean-bg-spotlight {
+  background-image: radial-gradient(ellipse 90% 60% at 50% 0%, rgba(116,47,70,0.22) 0%, transparent 75%);
+}
+
+/* ─── Card surface styles ─── */
+/* Hero/section-level glass (full blur, applied on hero/cta sections) */
+.jean-glass {
+  background: rgba(255,255,255,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255,255,255,0.80);
+  box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+}
+
+/* Card-level glass (reduced blur for dense grids — lower composite cost) */
+.jean-glass-card {
+  background: rgba(255,255,255,0.82);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(255,255,255,0.75);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.06);
+}
+
+.jean-elevated {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 4px 6px -1px rgba(0,0,0,0.07), 0 10px 15px -3px rgba(0,0,0,0.10);
+}
+
+.jean-soft-shadow {
+  background: var(--color-card-strong);
+  border: 1px solid var(--color-line-strong);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.06), 0 4px 16px rgba(0,0,0,0.04);
+}
+
+.jean-card {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+}
+
+.jean-card-strong {
+  background: var(--color-card-strong);
+  border: 1px solid var(--color-line-strong);
+}
+
+/* 8z46 core-4 — the two card looks that are a SHELL rather than content:
+   outlined is a line and no fill, filled is a fill and no line. Neither carries
+   a shadow, so the pair reads as a choice against the design's card surface. */
+.jean-card-outlined {
+  background: transparent;
+  border: 1px solid var(--color-line-strong);
+  box-shadow: none;
+}
+
+.jean-card-filled {
+  background: var(--color-card-strong);
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+/* 8z49 FP-1 — a section a person laid out by hand. Twelve tracks and rows of a
+   named height; the two bands arrive as custom properties so this class can be
+   replaced wholesale below the breakpoint, which an inline declaration could
+   not be. */
+.jean-grid-section {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  grid-auto-rows: minmax(var(--jean-grid-row, 1rem), auto);
+  column-gap: var(--jean-grid-gap, 1.5rem);
+  row-gap: 0.5rem;
+  /* 8z49 FP-11 — a cell's z-index (its block's layer) is counted inside the
+     section and nowhere else: a block sent forward cannot cover the header,
+     one sent back cannot drop under the section's own ground. */
+  isolation: isolate;
+}
+
+/* 8z49 FP-10a (D11) — a cell is where a block SITS, not what it fills. Three
+   kinds, from the package's one table (blockCellFit):
+
+     .jean-cell-media    a picture, a video, the mark: laid over the cell by
+                         .jean-cell-fill, so it IS the cell somebody drew and
+                         gives the row no height of its own
+     .jean-cell-box      a card, a group: stretches (a grid item's default) and
+                         grows the rows when its content is taller
+     .jean-cell-content  a heading, a paragraph, a button: its own size, placed
+                         by the justify-items / align-items the cell carries
+
+   Only the fill wrapper and its picture are sized here, never '.jean-grid-cell
+   > *': the canvas hangs its grip and its eight handles on the cell as direct
+   children, and a rule on every child sized those too.
+
+   The history this replaces — every child of a cell at height 100% — is why
+   the owner saw a button stretched across twelve columns and a label in an
+   empty box. What stays true from it:
+
+   Review round 1 measured both halves wrong in the first cut. '> img' could
+   never match: the shared block path wraps every block in a div, so the
+   picture is '.jean-grid-cell div img'. And 'renderImagePrimitive' writes its
+   height INLINE (a band, or max-height:360px), which no stylesheet rule can
+   outrank without !important — so the Zmena 22 logo in a four-row cell
+   painted at 360px with the rest of the cell empty, which is this row's own
+   acceptance failing.
+
+   The SIZE is overridden and the FIT is not: 'objectFit' and 'objectPosition'
+   are keys the owner chose (8z46 QL-23a, deployed) and the cell has no
+   business replacing them. */
+.jean-grid-cell {
+  min-width: 0;
+  min-height: 0;
+  display: grid;
+  /* 8z49 FP-11 — EVERY cell is positioned, not only a picture's. A picture's
+     cell has to be (its fill is laid over it), and a positioned box paints
+     above every non-positioned one whatever the document order: measured in a
+     browser, a photo covered the words written AFTER it — D3 ("the later
+     block paints on top") broken for exactly the words-over-a-photo case.
+     With every cell positioned, depth is document order and the layer, and
+     nothing else. */
+  position: relative;
+}
+
+.jean-cell-box > *,
+.jean-cell-content > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+.jean-cell-media {
+  position: relative;
+}
+
+/* 8z49 D19 — a function's frame (a form, a mount): what it holds stretches
+   across the cell and reflows inside it, never past it. */
+.jean-grid-frame {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  /* A mount's columns are set by VIEWPORT queries (four people across from
+     1024 px); in a frame a person drew narrower they would stand four across
+     in 390 px. The frame is the container its content answers to instead. */
+  container-type: inline-size;
+}
+
+/* Only ever FEWER columns than the owner chose (review round 1): two across
+   for a list set to three or more — never for a one- or two-column list, or a
+   people LIST layout — and one across below 440 px for all. */
+@container (max-width: 760px) {
+  .jean-grid-frame .jean-widget:is([data-jean-columns="3"], [data-jean-columns="4"], [data-jean-columns="5"]):not([data-jean-people-layout="list"]) .jean-person-grid,
+  .jean-grid-frame .jean-widget:is([data-jean-columns="3"], [data-jean-columns="4"], [data-jean-columns="5"]) .jean-gallery-grid,
+  /* The podněty mount carries no column attribute (review round 2) — its
+     default is three across — so it is lowered unless the owner chose one or two. */
+  .jean-grid-frame .jean-widget:not([data-jean-columns="1"]):not([data-jean-columns="2"]) .jean-suggestion-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+@container (max-width: 440px) {
+  /* The same specificity as the rule above and later, so below 440 px one
+     across wins even for a list set to three or more. */
+  .jean-grid-frame .jean-widget:is([data-jean-columns]):not([data-jean-columns="1"]) .jean-person-grid,
+  .jean-grid-frame .jean-widget:is([data-jean-columns]):not([data-jean-columns="1"]) .jean-gallery-grid,
+  .jean-grid-frame .jean-widget:not([data-jean-columns="1"]):not([data-jean-columns="0"]) .jean-suggestion-grid {
+    grid-template-columns: minmax(0, 1fr) !important;
+  }
+}
+
+.jean-grid-frame > * {
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* 8z49 FP-12 — a tilted block's wrapper. A grid like the cell it stands in, so
+   a card still stretches to its cell and a heading keeps its own width. */
+.jean-cell-turn {
+  display: grid;
+  min-width: 0;
+  min-height: 0;
+}
+
+.jean-cell-fill {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.jean-cell-fill > :first-child {
+  flex: 1 1 auto;
+  min-height: 0;
+}
+
+.jean-cell-fill img,
+.jean-cell-fill iframe,
+.jean-cell-fill video {
+  width: 100%;
+  height: 100% !important;
+  max-height: none !important;
+}
+
+/* D4, amended by D21 — the phone stacks in 'gridPhoneOrder' (the mark first,
+   then bands read left lane first) and releases every height. ONE query,
+   and it is the only place 'order' is ever applied: each cell carries the
+   number as --jean-cell-order, which does nothing at all until here. Above
+   the breakpoint a grid item's 'order' is NOT inert (it paints in
+   order-modified document order), and applying it there re-stacked every
+   overlapping pair — D3 broken by the one declaration meant to be dead. */
+@media (max-width: 767px) {
+  .jean-grid-section {
+    display: flex;
+    flex-direction: column;
+    grid-auto-rows: auto;
+    gap: var(--jean-grid-gap, 1.5rem);
+  }
+
+  .jean-grid-cell {
+    display: block;
+    width: 100%;
+    order: var(--jean-cell-order, 0);
+  }
+
+  /* A picture has no drawn cell on a phone: it stands in the column at its
+     own proportions, the way the flow shows it. */
+  .jean-cell-fill {
+    position: static;
+    display: block;
+  }
+
+  .jean-cell-fill img,
+  .jean-cell-fill iframe,
+  .jean-cell-fill video {
+    height: auto !important;
+  }
+
+  .jean-cell-fill iframe {
+    aspect-ratio: 16 / 9;
+  }
+
+  /* 8z49 D22 — a picture shown whole keeps the height it was drawn at (its
+     rows: one unit and a half-unit gap each), held to its side by its own
+     'objectPosition'. */
+  .jean-cell-contained .jean-cell-fill img {
+    height: var(--jean-cell-drawn-height, auto) !important;
+  }
+}
+
+
+/* 8z46 QL-2 — two more shells. flat is nothing at all: the icon, the title and
+   the words on the section's ground, as the leaflet draws them. elevated is a
+   line and a soft shadow, so the card floats above the ground. */
+.jean-card-flat {
+  background: transparent;
+  border: 1px solid transparent;
+  box-shadow: none;
+}
+
+.jean-card-elevated {
+  background: var(--color-card);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 10px 30px -12px rgba(15,23,42,0.28), 0 2px 6px rgba(15,23,42,0.06);
+}
+
+/* 8z50 ER-10 — story: the blog's card (.jean-blog-card) as a look for any card.
+   Its surface and line; a feature card and the shared card primitive also take
+   its shape (the picture edge to edge on top, the words padded below). */
+.jean-card-story {
+  background: var(--color-card, var(--color-surface));
+  border: 1px solid var(--color-line);
+  box-shadow: none;
+  overflow: hidden;
+}
+
+/* ─── Card behaviors ─── */
+.jean-float {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.jean-float:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 20px 40px rgba(0,0,0,0.14);
+}
+
+/* Respect user motion preferences */
+@media (prefers-reduced-motion: reduce) {
+  .jean-float {
+    transition: none;
+  }
+  .jean-float:hover {
+    transform: none;
+  }
+}
+
+/* ─── Structural design tokens ─── */
+/* headingTreatment: display — statement headings, near-poster scale */
+.jean-site-shell section h2 {
+  font-size: clamp(2.6rem, 1.3rem + 3.6vw, 4.2rem);
+  line-height: 1.02;
+  letter-spacing: -0.025em;
+  font-weight: 800;
+}
+
+/* headerBehavior: sticky — in-page anchors clear the pinned header */
+.jean-site-shell section[id],
+.jean-site-shell [id]:not(section):not(body) {
+  scroll-margin-top: 5.5rem;
+}
+
+/* headerLook: blend — transparent over the intro, painted once past it (8z80 SD-32) */
+.jean-site-shell header[data-jean-header-look="blend"] {
+  transition: background-color 0.25s ease, border-color 0.25s ease, backdrop-filter 0.25s ease;
+}
+.jean-site-shell header[data-jean-header-look="blend"]:not([data-jean-header-painted]) {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  box-shadow: none !important;
+}
+.jean-site-shell header[data-jean-header-over-picture]:not([data-jean-header-painted]) > div:first-child {
+  color: #ffffff;
+  --color-text: #ffffff;
+  --color-heading: #ffffff;
+  --color-muted: rgba(255,255,255,0.82);
+  --color-line: rgba(255,255,255,0.28);
+  --color-nav: transparent;
+  --color-nav-border: rgba(255,255,255,0.28);
+}
+.jean-site-shell header[data-jean-header-look="blend"] [data-jean-header-veil] {
+  transition: opacity 0.25s ease;
+}
+.jean-site-shell header[data-jean-header-painted] [data-jean-header-veil] {
+  opacity: 0;
+}
+.jean-site-shell header[data-jean-header-look="blend"]:not([data-jean-header-painted]) [data-jean-bar-logo="painted"],
+.jean-site-shell header[data-jean-header-painted] [data-jean-bar-logo="rest"] {
+  display: none;
+}
+.jean-site-shell header[data-jean-header-look="blend"]:not([data-jean-header-painted]) [data-jean-bar-cta="on-dark"] {
+  color: #fff !important;
+  border-color: #fff !important;
+}
+@media (prefers-reduced-motion: reduce) {
+  .jean-site-shell header[data-jean-header-look="blend"],
+  .jean-site-shell header[data-jean-header-look="blend"] [data-jean-header-veil] { transition: none; }
+}
+
+/* theme.borderRadius — the pictures' corner (8z56 W-6) */
+.jean-site-shell {
+  --jean-radius: 0px;
+  --jean-image-shadow: none;
+}
+
+/* ─── The card face ─── */
+/* cardFace: glass — every card of the page wears one face (8z80 SD-39, D60) */
+.jean-site-shell .jean-card-face,
+.jean-site-shell .jean-widget :is(.jean-occupancy-month, .jean-blog-card, .jean-suggestion-card, .jean-person-card, .jean-events-item) {
+  background: rgba(255,255,255,0.82);
+  border: 1px solid var(--color-line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+.jean-site-shell .jean-card-face-line {
+  border: 1px solid var(--color-line);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.jean-site-shell .jean-card-face.jean-float:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.jean-site-shell .jean-card-face.ring-2,
+.jean-site-shell .jean-card-face.ring-2:hover {
+  box-shadow: 0 0 0 2px var(--color-primary), 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+.jean-site-shell .jean-card-face.jean-card-on-picture {
+  background: var(--color-card);
+}
+
+/* cardCorner: medium — and one corner (8z80 SD-39) */
+.jean-site-shell .jean-card-corner,
+.jean-site-shell .jean-widget :is(.jean-occupancy-month, .jean-blog-card, .jean-suggestion-card, .jean-person-card, .jean-events-item) {
+  border-radius: 1rem;
+}
+
+/* jean-bg-fixed — the background holds still, the page scrolls over it. */
+@media (min-width: 1024px) and (hover: hover) {
+  .jean-site-shell .jean-bg-fixed,
+  .jean-site-shell [data-jean-bg-fixed] { background-attachment: fixed; }
+}
+.jean-site-shell section h1,
+.jean-site-shell section h2 { text-wrap: balance; }
+/* Inside a photo band's scrim card every block must read white. The blocks
+   arrive with their own INLINE color (var(--color-muted) — dark grey), and
+   inline beats any selector, so this is the one place !important is the
+   honest tool rather than a smell: the band owns legibility on top of a
+   photograph, whatever color the block brought with it. */
+.jean-site-shell .jean-photo-band :is(p, li, div, span, blockquote) { color: rgba(255,255,255,0.9) !important; }
+.jean-site-shell .jean-photo-band a { color: #FFFFFF !important; }
+/* The same mechanism for a band painted with --color-primary: the blocks
+   arrive carrying an inline var(--color-text), which is the site's INK — dark
+   ink on a dark primary, light ink on a light one, wrong either way. The band
+   owns legibility on its own fill, so the pair the theme derived wins. */
+.jean-site-shell .jean-on-primary :is(p, li, div, span, blockquote, td, th, summary, h1, h2, h3, h4, h5, h6, strong, em) { color: var(--color-on-primary, #fff) !important; }
+/* A LINK on that band is its own case: it arrives with the site's accent, and
+   the accent on the primary is the one pair the theme cannot make legible
+   (8z46 EL-2b review round 2 measured it as primary-on-primary — invisible).
+   Underlined label ink, which is what a link on a coloured band is everywhere
+   else on the web. */
+.jean-site-shell .jean-on-primary a { color: var(--color-on-primary, #fff) !important; text-decoration: underline; }
+/* 8z46 EL-7 — a block's own width inside a group's grid on the SHARED block
+   path, which emits inline styles and cannot carry a media query. A phone is
+   one track (the group's grid is auto-fit), so a span there would grow an
+   implicit column and scroll the row sideways; above 768px it spans. */
+.jean-site-shell .jean-span { grid-column: auto; }
+@media (min-width: 768px) {
+  .jean-site-shell .jean-span { grid-column: span var(--jean-span, 1); }
+}
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  overflow-x: hidden;
+}
+
+.jean-scroll-stage {
+  position: relative;
+  --jean-scroll-progress: 0;
+}
+
+/* Scroll-reveal + parallax are opt-in: only active when the site shell carries
+   data-jean-motion="on" (set from the design's decorationDensity = expressive).
+   With motion off, .jean-motion-layer is inert and content is simply visible —
+   a clean, static baseline instead of every section fading/parallaxing in. */
+.jean-motion-layer {
+  --jean-parallax-offset: 0px;
+}
+
+[data-jean-motion='on'] .jean-motion-layer {
+  opacity: 0;
+  transform: translate3d(0, calc(28px + var(--jean-parallax-offset)), 0) scale(0.985);
+  transition: opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1), transform 0.95s cubic-bezier(0.22, 1, 0.36, 1);
+  will-change: transform, opacity;
+}
+
+[data-jean-motion='on'] .jean-motion-layer.is-visible {
+  opacity: 1;
+  transform: translate3d(0, var(--jean-parallax-offset), 0) scale(1);
+}
+
+.jean-parallax-up {
+  --jean-parallax-offset: 0px;
+}
+
+.jean-parallax-down {
+  --jean-parallax-offset: 0px;
+}
+
+.jean-parallax-subtle {
+  --jean-parallax-offset: calc(var(--jean-scroll-progress, 0) * -6px);
+}
+
+.jean-panel-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.jean-section-shell {
+  position: relative;
+}
+
+.jean-rhythm-wide {
+  width: min(96rem, calc(100vw - 1.5rem));
+}
+
+.jean-rhythm-tight {
+  width: min(72rem, calc(100vw - 1.5rem));
+}
+
+.jean-gallery-columns,
+.jean-stagger-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.jean-stagger-card {
+  transition-delay: var(--jean-stagger-delay, 0s);
+}
+
+.jean-pullquote-card {
+  position: relative;
+}
+
+.jean-pullquote-card::before {
+  content: '"';
+  position: absolute;
+  top: 0.35rem;
+  left: 1rem;
+  font-family: var(--font-heading);
+  font-size: clamp(4rem, 7vw, 6rem);
+  line-height: 0.8;
+  color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  pointer-events: none;
+}
+
+.jean-grid-pattern-row {
+  width: 100%;
+}
+
+.jean-hero-shell {
+  position: relative;
+}
+
+@media (min-width: 1024px) {
+  .jean-panel-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+    gap: 3rem;
+    align-items: start;
+  }
+
+  /* The 2-column masonry gallery (with an oversized featured first image) is
+     opt-in for expressive designs, and it is opted in per SECTION by the
+     jean-gallery-panel class the renderer adds only when it chose the panel.
+     8z43 WE-4: this used to match every .jean-gallery-columns on a motion-on
+     site, where its (0,2,0) specificity beat the Tailwind lg:grid-cols-N the
+     owner's column knob had set. The default gallery keeps its own Tailwind
+     column classes. */
+  [data-jean-motion='on'] .jean-gallery-panel {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    align-items: start;
+  }
+
+  [data-jean-motion='on'] .jean-gallery-panel .jean-gallery-card--featured {
+    grid-row: span 2;
+  }
+
+  .jean-grid-pattern-row[data-row-centered='true'] {
+    max-width: calc(100% * var(--jean-row-share, 1));
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  /* Sticky panels are opt-in; the default is normal document flow (no full-height
+     sticky hero stage that overrides the whole layout). */
+  [data-jean-motion='on'] .jean-panel-sticky {
+    position: sticky;
+    top: clamp(5rem, 10vh, 7.5rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  /* Scoped to match the gated hidden rule's specificity so reduced-motion always
+     reveals content even when motion is on. */
+  [data-jean-motion='on'] .jean-motion-layer {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+
+  .jean-parallax-up,
+  .jean-parallax-down,
+  .jean-parallax-subtle {
+    --jean-parallax-offset: 0px;
+  }
+
+  .jean-pullquote-card::before {
+    display: none;
+  }
+
+  .jean-float {
+    transition: none;
+  }
+
+  .jean-float:hover {
+    transform: none;
+  }
+}
+
+
+/* V3.4b — the runtime's status slot: muted by default, React's red on error. */
+.jean-site-shell [data-jean-slot='status'] { color: var(--color-muted); }
+.jean-site-shell [data-jean-slot='status'][data-jean-status='error'] { color: #EF4444; }
+
+/* layout.edge — the section below draws the edge: its own ground, mirrored (8z80 SD-7) */
+.jean-site-shell {
+  --jean-edge-height: 4rem;
+}
+@media (max-width: 767px) {
+  .jean-site-shell {
+    --jean-edge-height: 2.5rem;
+  }
+}
+.jean-site-shell [data-jean-edge-above]:is(section, footer),
+.jean-site-shell [data-jean-edge-above] > section {
+  position: relative;
+}
+.jean-site-shell [data-jean-edge-above]:is(section, footer)::before,
+.jean-site-shell [data-jean-edge-above]:is(section, footer)::after,
+.jean-site-shell [data-jean-edge-above] > section::before,
+.jean-site-shell [data-jean-edge-above] > section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform-origin: top;
+  transform: translateY(1px) scaleY(-1);
+  background: inherit;
+  pointer-events: none;
+  -webkit-mask: var(--jean-edge-shape) top / 100% calc(var(--jean-edge-height) + 1px) no-repeat;
+  mask: var(--jean-edge-shape) top / 100% calc(var(--jean-edge-height) + 1px) no-repeat;
+}
+.jean-site-shell [data-jean-edge-above]:is(section, footer)::before,
+.jean-site-shell [data-jean-edge-above] > section::before {
+  background: var(--color-bg);
+  -webkit-mask-position: 0 -2px;
+  mask-position: 0 -2px;
+}
+.jean-site-shell [data-jean-edge-below] {
+  isolation: isolate;
+}
+.jean-site-shell .jean-edge-room {
+  padding-block: var(--jean-edge-height);
+}
+.jean-site-shell [data-jean-edge-above="wave"] {
+  --jean-edge-shape: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201440%2064'%20preserveAspectRatio%3D'none'%3E%3Cpath%20transform%3D'translate(0%2064)%20scale(1%20-1)'%20d%3D'M0%2C64%20H1440%20V24%20C1200%2C72%20960%2C72%20720%2C40%20C480%2C8%20240%2C8%200%2C48%20Z'%2F%3E%3C%2Fsvg%3E");
+}
+.jean-site-shell [data-jean-edge-above="curve"] {
+  --jean-edge-shape: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201440%2064'%20preserveAspectRatio%3D'none'%3E%3Cpath%20transform%3D'translate(0%2064)%20scale(1%20-1)'%20d%3D'M0%2C64%20H1440%20V0%20Q720%2C128%200%2C0%20Z'%2F%3E%3C%2Fsvg%3E");
+}
+.jean-site-shell [data-jean-edge-above="slant"] {
+  --jean-edge-shape: url("data:image/svg+xml,%3Csvg%20xmlns%3D'http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg'%20viewBox%3D'0%200%201440%2064'%20preserveAspectRatio%3D'none'%3E%3Cpath%20transform%3D'translate(0%2064)%20scale(1%20-1)'%20d%3D'M0%2C64%20L1440%2C64%20L1440%2C0%20Z'%2F%3E%3C%2Fsvg%3E");
+}
